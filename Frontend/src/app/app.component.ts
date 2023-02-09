@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TodoService } from './services/todo-service.service';
 import { Item } from './models/item';
 import { FormControl, Validators } from '@angular/forms';
@@ -12,16 +12,19 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public title = 'TodoList';
-  items: Item[] = [];
-  error: HttpErrorResponse | null = null;
+  public items: Item[] = [];
+  public error: HttpErrorResponse | null = null;
 
-  formItem = new FormControl(null, [Validators.required, itemValidator()]);
+  public formItem = new FormControl(null, [
+    Validators.required,
+    itemValidator(),
+  ]);
 
-  constructor(private todoService: TodoService) {}
+  public constructor(private todoService: TodoService) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.todoService.getItems().subscribe({
       next: (items) => {
         this.items = sortItems(items as Item[]);
@@ -33,9 +36,7 @@ export class AppComponent {
     });
   }
 
-  addItem() {
-    const payload = this.formItem.value;
-
+  public addItem(payload: string | null): void {
     if (payload) {
       this.todoService
         .addItem(payload)
@@ -56,7 +57,7 @@ export class AppComponent {
     }
   }
 
-  markDone(id: number, isCompleted: boolean) {
+  public markDone(id: number, isCompleted: boolean): void {
     this.todoService
       .markComplete(id, !isCompleted)
       .pipe(
@@ -75,7 +76,7 @@ export class AppComponent {
       });
   }
 
-  deleteItem(id: number) {
+  public deleteItem(id: number): void {
     this.todoService
       .deleteItem(id)
       .pipe(
@@ -94,7 +95,7 @@ export class AppComponent {
       });
   }
 
-  reset() {
+  public reset(): void {
     this.formItem.reset();
   }
 }

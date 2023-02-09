@@ -2,6 +2,7 @@
 /**
  * Prefix used for the endpoints
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const prefix = '/api/';
 /**
  * Endpoints used for all service calls

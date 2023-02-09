@@ -82,7 +82,7 @@
             <button
               type="button"
               class="btn btn-primary"
-              (click)="addItem()"
+              (click)="addItem(formItem.value)"
               [disabled]="formItem.status !== 'VALID'"
             >
               Add Item
@@ -96,7 +96,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <h1>
+        <h1 data-testId="list-heading">
           Showing {{ items.length }} {{ items.length === 1 ? "Item" : "Items" }}
           <!-- Removed this button as the list is automatically updated 
           when an item is added or deleted -->
